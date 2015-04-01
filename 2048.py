@@ -93,15 +93,14 @@ class TwentyFortyEight:
         self.height = grid_height
         self.grid = [[0 for col in range(self.width)] for row in range(self.height)]
         self.reset()
-        
-        left_col = []
-        right_col = []
-        for row in range(self.height):
-            left_col.append(self.grid[row][0])
-            right_col.append(self.grid[row][-1])
+             
+        left_col = traverse_grid((0,0), (1,0), self.height)
+        right_col = traverse_grid((0,self.width), (1,0), self.height)
+        top_row = traverse_grid((0,0), (0,1), self.width)
+        bottom_row = traverse_grid((self.height,0), (0,1), self.width)
 
-        self.initial_tiles = {UP: self.grid[0],
-                   DOWN: self.grid[self.height-1],
+        self.initial_tiles = {UP: top_row,
+                   DOWN: bottom_row,
                    LEFT: left_col,
                    RIGHT: right_col}
         
@@ -119,6 +118,12 @@ class TwentyFortyEight:
         """
         Return a string representation of the grid for debugging.
         """
+        for tile in self.initial_tiles[1]:
+            print "initial_tiles[1]", tile
+            
+        for tile in self.initial_tiles[2]:
+            print "initial_tiles[2]", tile
+            
         return str(self.grid) + "\n " + str(self.initial_tiles)
 
     def get_grid_height(self):
@@ -138,18 +143,17 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
-
+    
+        print direction
+        
         initial_tiles = self.initial_tiles[direction]
         
         merge_lists = []
         
         for initial_tile in initial_tiles:
-            merge_lists.append(traverse_grid(initial_tile, direction, self.height - 1))
-        
-        for merge_list in merge_lists:
-            merge(merge_list)
-        
-        print merge_lists
+            row = traverse_grid(initial_tile, direction, self.height - 1)
+            print row
+
           
         
 # self.initial_tiles = {UP: grid[0],
@@ -195,7 +199,7 @@ class TwentyFortyEight:
         return self.grid[row][col]
 
 
-#poc_2048_gui.run_gui(TwentyFortyEight(3, 5))
+poc_2048_gui.run_gui(TwentyFortyEight(3, 5))
 test = TwentyFortyEight(3,5)
 print test
 # testsuite.run_suite(TwentyFortyEight)
