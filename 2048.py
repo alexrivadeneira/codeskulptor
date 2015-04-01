@@ -2,11 +2,7 @@
 Clone of 2048 game.
 """
 
-# import user39_Q304aD4fSn_6  as testsuite
-
-
 import poc_2048_gui
-import random
 
 # Directions, DO NOT MODIFY
 UP = 1
@@ -78,36 +74,37 @@ class TwentyFortyEight:
     """
 
     def __init__(self, grid_height, grid_width):
-        self.width = grid_width
-        self.height = grid_height
-        self.reset()
+        # replace with your code
+        pass
 
     def reset(self):
         """
         Reset the game so the grid is empty except for two
         initial tiles.
         """
-        self.grid = [[0 for col in range(self.width)] for row in range(self.height)]
-        self.new_tile()
-        self.new_tile()
-        
+        # replace with your code
+        pass
+
     def __str__(self):
         """
         Return a string representation of the grid for debugging.
         """
-        return str(self.grid)
+        # replace with your code
+        return ""
 
     def get_grid_height(self):
         """
         Get the height of the board.
         """
-        return self.height
+        # replace with your code
+        return 0
 
     def get_grid_width(self):
         """
         Get the width of the board.
         """
-        return self.width
+        # replace with your code
+        return 0
 
     def move(self, direction):
         """
@@ -123,32 +120,23 @@ class TwentyFortyEight:
         square.  The tile should be 2 90% of the time and
         4 10% of the time.
         """
-        spawn_tile = [2,2,2,2,2,2,2,2,2,4]
-        new_tile = random.choice(spawn_tile)
-        
-        random_row = random.randrange(0, self.height)
-        random_col = random.randrange(0, self.width)
-        
-        while self.grid[random_row][random_col] != 0:
-            random_row = random.randrange(0, self.height)
-            random_col = random.randrange(0, self.width)
-        
-        self.grid[random_row][random_col] = new_tile
-        
+        # replace with your code
+        pass
+
     def set_tile(self, row, col, value):
         """
         Set the tile at position row, col to have the given value.
         """
-        self.grid[row][col] = value
+        # replace with your code
+        pass
 
     def get_tile(self, row, col):
         """
         Return the value of the tile at position row, col.
         """
-        
-        return self.grid[row][col]
+        # replace with your code
+        return 0
 
 
-poc_2048_gui.run_gui(TwentyFortyEight(3, 5))
-# testsuite.run_suite(TwentyFortyEight)
+poc_2048_gui.run_gui(TwentyFortyEight(4, 4))
 
