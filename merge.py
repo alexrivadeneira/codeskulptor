@@ -72,6 +72,17 @@ def merge(line):
     
     return final_list
 
+def traverse_grid(start_cell, direction, num_steps):
+    
+    tiles = []
+    
+    for step in range(num_steps):
+        row = start_cell[0] + step * direction[0]
+        col = start_cell[1] + step * direction[1]
+        tiles.append((row, col))
+  
+    return tiles
+        
 class TwentyFortyEight:
     """
     Class to run the game logic.
@@ -80,7 +91,20 @@ class TwentyFortyEight:
     def __init__(self, grid_height, grid_width):
         self.width = grid_width
         self.height = grid_height
+        self.grid = [[0 for col in range(self.width)] for row in range(self.height)]
         self.reset()
+        
+        left_col = []
+        right_col = []
+        for row in range(self.height):
+            left_col.append(self.grid[row][0])
+            right_col.append(self.grid[row][-1])
+
+        self.initial_tiles = {UP: self.grid[0],
+                   DOWN: self.grid[self.height-1],
+                   LEFT: left_col,
+                   RIGHT: right_col}
+        
 
     def reset(self):
         """
@@ -95,7 +119,7 @@ class TwentyFortyEight:
         """
         Return a string representation of the grid for debugging.
         """
-        return str(self.grid)
+        return str(self.grid) + "\n " + str(self.initial_tiles)
 
     def get_grid_height(self):
         """
@@ -114,9 +138,31 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
-        # replace with your code
-        pass
 
+        initial_tiles = self.initial_tiles[direction]
+        
+        merge_lists = []
+        
+        for initial_tile in initial_tiles:
+            merge_lists.append(traverse_grid(initial_tile, direction, self.height - 1))
+        
+        for merge_list in merge_lists:
+            merge(merge_list)
+        
+        print merge_lists
+          
+        
+# self.initial_tiles = {UP: grid[0],
+           #DOWN: grid[height-1],
+           #LEFT: left_col,
+           # RIGHT: right_col}
+        
+#OFFSETS = {UP: (1, 0),
+#           DOWN: (-1, 0),
+#           LEFT: (0, 1),
+#           RIGHT: (0, -1)}
+        
+        
     def new_tile(self):
         """
         Create a new tile in a randomly selected empty
@@ -149,6 +195,8 @@ class TwentyFortyEight:
         return self.grid[row][col]
 
 
-poc_2048_gui.run_gui(TwentyFortyEight(3, 5))
+#poc_2048_gui.run_gui(TwentyFortyEight(3, 5))
+test = TwentyFortyEight(3,5)
+print test
 # testsuite.run_suite(TwentyFortyEight)
 
