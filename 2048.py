@@ -94,15 +94,18 @@ class TwentyFortyEight:
         self.grid = [[0 for col in range(self.width)] for row in range(self.height)]
         self.reset()
              
-        left_col = traverse_grid((0,0), (1,0), self.height)
-        right_col = traverse_grid((0,self.width), (1,0), self.height)
-        top_row = traverse_grid((0,0), (0,1), self.width)
-        bottom_row = traverse_grid((self.height,0), (0,1), self.width)
+        left_col = traverse_grid((0,0), OFFSETS[UP], self.height)
+        right_col = traverse_grid((0,self.width - 1), OFFSETS[UP], self.height)
+        
+        top_row = traverse_grid((0,0), OFFSETS[LEFT], self.width)
+        bottom_row = traverse_grid((self.height - 1,0), OFFSETS[LEFT], self.width)
 
         self.initial_tiles = {UP: top_row,
                    DOWN: bottom_row,
                    LEFT: left_col,
                    RIGHT: right_col}
+        
+        print self.initial_tiles
         
 
     def reset(self):
@@ -144,15 +147,26 @@ class TwentyFortyEight:
         a new tile if any tiles moved.
         """
     
-        print direction
-        
+
         initial_tiles = self.initial_tiles[direction]
+        
         
         merge_lists = []
         
+        print "==="
+        print direction
+
         for initial_tile in initial_tiles:
-            row = traverse_grid(initial_tile, direction, self.height - 1)
-            print row
+            
+            print "keystroke: ", initial_tiles, " --- ", initial_tile, direction
+            if direction == 1 or direction == 2:
+                print traverse_grid(initial_tile, OFFSETS[direction], self.height) 
+            else:
+                print traverse_grid(initial_tile, OFFSETS[direction], self.width) 
+
+
+
+            print "initial_tile", initial_tile
 
           
         
@@ -199,8 +213,11 @@ class TwentyFortyEight:
         return self.grid[row][col]
 
 
-poc_2048_gui.run_gui(TwentyFortyEight(3, 5))
-test = TwentyFortyEight(3,5)
+poc_2048_gui.run_gui(TwentyFortyEight(2,3))
+
+test = TwentyFortyEight(2,3)
 print test
+
 # testsuite.run_suite(TwentyFortyEight)
+
 
