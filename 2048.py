@@ -127,7 +127,7 @@ class TwentyFortyEight:
         for tile in self.initial_tiles[2]:
             print "initial_tiles[2]", tile
             
-        return str(self.grid) + "\n " + str(self.initial_tiles)
+        return "THE GRID: " + str(self.grid) + "\n " + str(self.initial_tiles)
 
     def get_grid_height(self):
         """
@@ -160,11 +160,46 @@ class TwentyFortyEight:
             
             print "keystroke: ", initial_tiles, " --- ", initial_tile, direction
             if direction == 1 or direction == 2:
-                print traverse_grid(initial_tile, OFFSETS[direction], self.height) 
+                squares_to_merge = traverse_grid(initial_tile, OFFSETS[direction], self.height)
+                merge_list = []
+                for square in squares_to_merge:
+                    merge_list.append(self.grid[square[0]][square[1]])
+                    print "merge_list", merge_list
+                merged_list = merge(merge_list)
+                
+                i = 0
+                for value in merged_list:
+                   
+                    self.set_tile(squares_to_merge[i][0], squares_to_merge[i][1], value)
+                    i += 1
+                    
+                    
+                if merged_list != merge_list:
+                    self.new_tile()
+                    
+                print "merged list: ", merged_list
+                
+                
+            #  def set_tile(self, row, col, value):
+                    
             else:
-                print traverse_grid(initial_tile, OFFSETS[direction], self.width) 
-
-
+                squares_to_merge = traverse_grid(initial_tile, OFFSETS[direction], self.width) 
+                merge_list = []
+                for square in squares_to_merge:
+                    merge_list.append(self.grid[square[0]][square[1]])
+                    print "merge_list", merge_list
+                merged_list = merge(merge_list)
+                print "merged list: ", merged_list
+        
+                i = 0
+                for value in merged_list:
+                   
+                    self.set_tile(squares_to_merge[i][0], squares_to_merge[i][1], value)
+                    i += 1        
+        
+                    
+                if merged_list != merge_list:
+                    self.new_tile()
 
             print "initial_tile", initial_tile
 
@@ -213,9 +248,10 @@ class TwentyFortyEight:
         return self.grid[row][col]
 
 
-poc_2048_gui.run_gui(TwentyFortyEight(2,3))
+test = TwentyFortyEight(5,4)
+poc_2048_gui.run_gui(test)
 
-test = TwentyFortyEight(2,3)
+
 print test
 
 # testsuite.run_suite(TwentyFortyEight)
