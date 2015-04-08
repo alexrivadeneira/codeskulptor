@@ -146,8 +146,7 @@ class TwentyFortyEight:
         Move all tiles in the given direction and add
         a new tile if any tiles moved.
         """
-    
-
+   
         initial_tiles = self.initial_tiles[direction]
         
         
@@ -156,9 +155,10 @@ class TwentyFortyEight:
         print "==="
         print direction
 
+        tiles_changed = False       
+        
         for initial_tile in initial_tiles:
             
-            print "keystroke: ", initial_tiles, " --- ", initial_tile, direction
             if direction == 1 or direction == 2:
                 squares_to_merge = traverse_grid(initial_tile, OFFSETS[direction], self.height)
                 merge_list = []
@@ -175,11 +175,11 @@ class TwentyFortyEight:
                     
                     
                 if merged_list != merge_list:
-                    self.new_tile()
+                    tiles_changed = True
+                    
                     
                 print "merged list: ", merged_list
-                
-                
+
             #  def set_tile(self, row, col, value):
                     
             else:
@@ -199,21 +199,13 @@ class TwentyFortyEight:
         
                     
                 if merged_list != merge_list:
-                    self.new_tile()
+                    tiles_changed = True
 
             print "initial_tile", initial_tile
 
-          
-        
-# self.initial_tiles = {UP: grid[0],
-           #DOWN: grid[height-1],
-           #LEFT: left_col,
-           # RIGHT: right_col}
-        
-#OFFSETS = {UP: (1, 0),
-#           DOWN: (-1, 0),
-#           LEFT: (0, 1),
-#           RIGHT: (0, -1)}
+        if tiles_changed == True:
+            self.new_tile()          
+
         
         
     def new_tile(self):
@@ -248,7 +240,7 @@ class TwentyFortyEight:
         return self.grid[row][col]
 
 
-test = TwentyFortyEight(5,4)
+test = TwentyFortyEight(4,4)
 poc_2048_gui.run_gui(test)
 
 
